@@ -12,24 +12,26 @@ const ReadReceipt = ({navigation}) => {
   const { currentUser } = useAuth();
 
   useEffect(() => {
+ 
+  }, [])
+
+  useEffect(() => {
     const checkIsSupported = async () => {
       const deviceIsSupported = await NfcManager.isSupported()
 
       setHasNFC(deviceIsSupported)
       if (deviceIsSupported) {
+        readTag();
         await NfcManager.start()
       }
     }
 
     checkIsSupported()
-  }, [])
-
-  useEffect(() => {
     
     if (currentUser === undefined || currentUser === null){
 
     } else {
-      readTag();
+      
       NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
         console.log('tag found')
         console.log(tag);
@@ -41,12 +43,6 @@ const ReadReceipt = ({navigation}) => {
         NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
       }
     }
-    
-    
-    
-    
-
-    
   }, [])
 
   const readTag = async () => {
@@ -82,6 +78,7 @@ const ReadReceipt = ({navigation}) => {
       const response = await fetch(`https://real-pear-leopard-tam.cyclic.app/api/receipts/${ReceiptID}`);
       const newData = await response.json();
       updateUserId(ReceiptID, currentUser.email);
+      console.log("Edited receipt with user email")
     } catch(error)
     {
       console.error(error);
@@ -93,7 +90,7 @@ const ReadReceipt = ({navigation}) => {
   const updateUserId = async (receiptId, newUserId) => {
     try {
       //const response = await fetch('http://192.168.1.145:3000/api/receipts/updateUserId', {
-        const response = await fetch('https://real-pear-leopard-tam.cyclic.app/api/receipts/updateUserId', {
+        const response = await fetch(`https://real-pear-leopard-tam.cyclic.app/api/receipts/updateUserId`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -107,11 +104,11 @@ const ReadReceipt = ({navigation}) => {
         if (response.ok) {
             const data = await response.text();
             console.log('Success:', data);
-            // Handle success
+            readTag();
         } else {
             // Handle HTTP errors
             console.error('HTTP Error:', response.status, response.statusText);
-
+            readTag();
         }
     } catch (error) {
         // Handle network errors

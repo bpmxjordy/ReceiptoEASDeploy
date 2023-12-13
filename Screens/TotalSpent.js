@@ -70,7 +70,7 @@ import ReadReceipt from './ReadReceipt';
             <View style={styles.container}>
                 <ReadReceipt/>
                 <DateRangeSelector onSelect={fetchAmountSpent} />
-                <Text style={styles.totalAmountText}>Total Amount Spent: {totalAmount}</Text>
+                <Text style={styles.totalAmountText}>Total Amount Spent: £{totalAmount}</Text>
             </View>
         );
     };

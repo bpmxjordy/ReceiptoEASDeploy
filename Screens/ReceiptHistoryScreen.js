@@ -35,14 +35,17 @@ const ReceiptHistoryScreen = ({navigation}) => {
             
 
     const renderItem = ({ item }) => (
+        
         <TouchableOpacity 
         style={styles.receiptBox}
         onPress={() => navigation.navigate('ReceiptDetailScreen', { receipt: item })}
         >
             <View style={styles.receiptBox}>
-                <Text style={{color: 'white'}}>Id: {item.userId}</Text>
-                <Text style={{color: 'white'}}>Date: {item.date}</Text>
-                <Text style={{color: 'white'}}>Total Amount: {item.totalAmount}</Text>
+                <Text style={{color: 'white'}}>Owner: {item.userId}</Text>
+                <Text style={{color: 'white'}}>Shop: {item.shop}</Text>
+                <Text style={{color: 'white'}}>Date: {item.date.split('T')[0].split('.')[0]}</Text>
+                <Text style={{color: 'white'}}>Time: {item.date.split('T')[1].split('.')[0]}</Text>
+                <Text style={{color: 'white'}}>Total Amount: £{item.totalAmount}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -82,8 +85,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#11182F',
         color: 'white',
         borderRadius: 10,
-        marginVertical: 8,
-        marginHorizontal: 16,
+        margin: '5%',
+        paddingBottom: '2.5%',
+        marginBottom: '0%'
     }
 
 });
