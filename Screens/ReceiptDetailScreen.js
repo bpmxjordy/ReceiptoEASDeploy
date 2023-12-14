@@ -31,7 +31,7 @@ const ReceiptDetailScreen = ({ route }) => {
             <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold'}}>Time: {time}</Text>
             <Text style={{color: 'white', fontSize: 20, marginTop: '5%', fontWeight: 'bold'}}>Total Amount: £{receipt.totalAmount}</Text>
             <Text style={{color: 'white', marginTop: '5%', fontSize: 25, fontWeight: 'bold'}}>Items</Text>
-            <ScrollView >
+            <ScrollView style={styles.scrollView}>
             {receipt.items && receipt.items.map((item, index) => (
                 <View style={styles.items} key={index}>
                     <View style={{width:  '85%', height: 'auto'}}><Text style={styles.textTitle}>{item.name}</Text><Text style={styles.textCategory}>{item.category}</Text></View>
@@ -53,11 +53,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#080B16',
     },
     scrollView: {
-        
+    
     },
     items: {
         width: '100%',
-        height: '10%',
+        height: 'auto',
+        padding: '2.5%',
         borderStyle: 'solid',
         borderBottomWidth: 1,
         borderColor: 'white',
