@@ -34,8 +34,11 @@ export default function App() {
           <Stack.Navigator 
           initialRouteName="Login" 
           screenOptions={{
+            headerStyle: { backgroundColor: '#080B16'},
+            headerTitleStyle: { color: 'white' },
+            headerTintColor: 'white'
           }}>
-            <Stack.Screen name="Login" component={Login}/>
+            <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
             <Stack.Screen name="ReceiptHistory" component={ReceiptHistory} options={{unmountOnBlur: true}}/>
             <Stack.Screen name="ReceiptDetailScreen" component={ReceiptDetailScreen} />
             <Stack.Screen name="Register" component={Register}/>
@@ -49,7 +52,7 @@ export default function App() {
             <Stack.Screen name="ScanReceipt" component={ScanReceipt}/>
             <Stack.Screen name="Home" component={Home} options={{
             gestureEnabled: false,
-            headerShown: true,
+            headerShown: false,
             headerLeft: () => <></>,}}>
            </Stack.Screen>
           </Stack.Navigator>
