@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useAuth } from '../AuthContext'; // Import your AuthContext
-import { PieChart } from 'react-native-chart-kit'; // Import a chart library
 import DateRangeSelector from './DateRangeSelector';
 
 const CategoryAnalyticsScreen = () => {
@@ -75,16 +74,6 @@ const CategoryAnalyticsScreen = () => {
         fetchCategoryAnalytics();
     }, []);
 
-    // Function to prepare data for the pie chart
-    const preparePieChartData = () => {
-          return categoryData.map(item => ({
-            name: item._id,
-            amount: item.totalAmount,
-            color: item.color, // Use the pre-defined color
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 15
-        }));
-    };
 
     const pieChartColors = ['#007bff', // Blue
                         '#dc3545', // Red
@@ -120,26 +109,6 @@ const CategoryAnalyticsScreen = () => {
             <Text style={styles.header}>Category Analytics</Text>
             <DateRangeSelector onSelect={fetchCategoryAnalytics} />
             <View>
-              <PieChart
-                  style={styles.pieChart}
-                  data={preparePieChartData()}
-                  width={400}
-                  height={220}
-                  chartConfig={{
-                      backgroundColor: '#1cc910',
-                      backgroundGradientFrom: '#eff3ff',
-                      backgroundGradientTo: '#efefef',
-                      decimalPlaces: 2,
-                      color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                      style: {
-                          borderRadius: 16,
-                      },
-                  }}
-                  accessor="amount"
-                  backgroundColor="transparent"
-                  paddingLeft="15"
-                  absolute
-              />
             </View>
             
 
