@@ -45,7 +45,7 @@ const Login = ({ navigation }) => {
       {{ 
         width: '60%',
         height: undefined,
-        aspectRatio: 1.3,
+        aspectRatio: 1.2,
         
         
       }}/>

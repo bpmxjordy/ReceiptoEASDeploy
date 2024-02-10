@@ -8,6 +8,7 @@ import { useAuth } from '../AuthContext';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import DateRangeSelector from './DateRangeSelector';
 import ReadReceipt from './ReadReceipt';
+import LineGraph from './LineGraph'
 
     const TotalSpent = () => {
         const { currentUser } = useAuth();
@@ -47,7 +48,7 @@ import ReadReceipt from './ReadReceipt';
             });
 
             try {
-                const response = await fetch('https://real-pear-leopard-tam.cyclic.app/api/receipts/amountSpent', {
+                const response = await fetch('http://192.168.1.145:3000/api/receipts/amountSpent', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -63,6 +64,57 @@ import ReadReceipt from './ReadReceipt';
                 setTotalAmount(data.totalAmount);
             } catch (error) {
                 console.error('Error fetching amount spent:', error);
+            }
+        };
+
+        const fetchDailyAmountSpent = async (range) => {
+
+            let endDate = new Date();
+            let startDate = new Date();
+    
+            switch (range) {      
+                case '1':                                                   //minusing days of the current day to get the end range 
+                    startDate.setDate(endDate.getDate() - 1);
+                    break;
+                case '2':
+                    startDate.setDate(endDate.getDate() - 2);
+                    break;                                          
+                case '7':
+                    startDate.setDate(endDate.getDate() - 7);
+                    break;
+                case '14':
+                    startDate.setDate(endDate.getDate() - 14);
+                    break;
+                case '30':
+                    startDate.setDate(endDate.getDate() - 30);
+                    break;
+                case '365':
+                    startDate.setFullYear(endDate.getFullYear() - 1);
+                    break;
+                default:
+                    startDate.setDate(endDate.getDate() - 7);
+            }
+            
+            const body = JSON.stringify({
+                startDate: startDate.toISOString().split('T')[0],
+                endDate: endDate.toISOString().split('T')[0],
+                userId: currentUser.email
+            });
+    
+            try {
+                const response = await fetch('http://192.168.1.145:3000/api/receipts/dailyAmountSpent', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: body
+                });
+    
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setDailyAmounts(data); // Assuming data is an array of { date, totalAmount }
+            } catch (error) {
+                console.error('Error fetching daily amount spent:', error);
             }
         };
     
