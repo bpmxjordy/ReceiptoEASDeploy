@@ -40,12 +40,12 @@ const Login = ({ navigation }) => {
         alignItems: 'center',
         justifyContent: 'center'
       }}>
-      <Image source={require('../images/receiptoLogoNew.png')} 
+      <Image source={require('../images/receiptoLogoDarkText.png')} 
       containerStyle=
       {{ 
         width: '60%',
         height: undefined,
-        aspectRatio: 1.2,
+        aspectRatio: 1.3,
         
         
       }}/>
