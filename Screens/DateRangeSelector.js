@@ -22,7 +22,7 @@ const DateRangeSelector = ({ onSelect }) => {
 
     return (
         <View>
-            <TouchableOpacity style={styles.DropButton}  onPress={() => setModalVisible(true)} ><Text style={{fontSize: 15, color: 'black'}}>Select Date Range</Text><Icon style={{marginLeft: '5%'}} size={20} name='arrow-down-drop-circle' /></TouchableOpacity>
+            <TouchableOpacity style={styles.DropButton}  onPress={() => setModalVisible(true)} ><Text style={{fontSize: 15, color: 'black'}}>{options.value}</Text><Icon style={{marginLeft: '5%'}} size={20} name='arrow-down-drop-circle' /></TouchableOpacity>
             <Modal
             style={{backgroundColor: 'white'}}
                 animationType="fade"
@@ -55,10 +55,11 @@ const styles = StyleSheet.create({
     },
     DropButton: {
         display: 'flex',
+        width: "40%",
         flexDirection: 'row',
         backgroundColor: 'white',
         color: 'white',
-        padding: 30,
+        padding: 10,
         borderRadius: 100,
         marginVertical: 8,
         marginHorizontal: 16,

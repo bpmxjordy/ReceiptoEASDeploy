@@ -121,7 +121,6 @@ const CategoryAnalyticsScreen = () => {
     return (
         <ScrollView style={styles.container}>
             {/* Pie Chart for Category Analytics */}
-            <Text style={styles.header}>Category Analytics</Text>
             <DateRangeSelector onSelect={fetchCategoryAnalytics} />
             <View style={styles.piechartContainer}>
                 <PieChart data={categoryData} size={200} />
@@ -137,13 +136,16 @@ const CategoryAnalyticsScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
+        height: '100%',
+        width: '100%',
         flex: 1,
-        paddingTop: 20,
+        backgroundColor: '#080B16'
     },
     header: {
         fontSize: 22,
         textAlign: 'center',
         marginBottom: 20,
+        color: "white"
     },
     piechartContainer: {
         width: "100%",
@@ -166,21 +168,25 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       flex: 1,
       textAlign: 'center',
+      color: "white"
   },
   tableCell: {
       flex: 1,
       textAlign: 'center',
+      color: "white"
   },
   legendContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
     marginTop: 20,
+    color: "white"
   },
   legendItem: {
     flexDirection: 'row',
     alignItems: 'center',
     margin: 5,
+    color: "white"
   },
   colorIndicator: {
     width: 20,
@@ -190,6 +196,7 @@ const styles = StyleSheet.create({
   },
   legendText: {
     fontSize: 14,
+    color: "white"
   },
 });
 

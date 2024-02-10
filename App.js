@@ -46,9 +46,9 @@ export default function App() {
             <Stack.Screen name="ReadReceipt" component={ReadReceipt}/>
             <Stack.Screen name="AnalyticsScreen" component={AnalyticsScreen}/>
             <Stack.Screen name="BottomNavBar" component={BottomNavBar}/>
-            <Stack.Screen name="TotalSpent" component={TotalSpent}/>
-            <Stack.Screen name="CategoriesScreen" component={CategoriesScreen}/>
-            <Stack.Screen name="Comparison" component={Comparison}/>
+            <Stack.Screen name="TotalSpent" component={TotalSpent} options={{ title: 'Total Spent' }}/>
+            <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} options={{ title: 'Categories' }}/>
+            <Stack.Screen name="Comparison" component={Comparison} options={{ title: 'Comparison' }}/>
             <Stack.Screen name="ScanReceipt" component={ScanReceipt}/>
             <Stack.Screen name="Home" component={Home} options={{
             gestureEnabled: false,
