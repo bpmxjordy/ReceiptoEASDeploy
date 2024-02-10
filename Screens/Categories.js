@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useAuth } from '../AuthContext'; // Import your AuthContext
 import DateRangeSelector from './DateRangeSelector';
+import PieChart from './PieChartComponent'
+
 
 const CategoryAnalyticsScreen = () => {
     const { currentUser } = useAuth(); // Access the current user from your AuthContext
@@ -102,15 +104,29 @@ const CategoryAnalyticsScreen = () => {
           <Text style={styles.tableCell}>${item.totalAmount.toFixed(2)}</Text>
       </View>
   );
+  const Legend = ({ data }) => {
+    return (
+      <View style={styles.legendContainer}>
+        {data.map((item, index) => (
+          <View key={index} style={styles.legendItem}>
+            <View style={[styles.colorIndicator, { backgroundColor: item.color }]} />
+            <Text style={styles.legendText}>{item._id}</Text>
+          </View>
+        ))}
+      </View>
+    );
+  };
+  
 
     return (
         <ScrollView style={styles.container}>
             {/* Pie Chart for Category Analytics */}
             <Text style={styles.header}>Category Analytics</Text>
             <DateRangeSelector onSelect={fetchCategoryAnalytics} />
-            <View>
-                
+            <View style={styles.piechartContainer}>
+                <PieChart data={categoryData} size={200} />
             </View>
+            <Legend data={categoryData} />
             
 
             {renderTableHeader()}
@@ -122,12 +138,19 @@ const CategoryAnalyticsScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 50,
+        paddingTop: 20,
     },
     header: {
         fontSize: 22,
         textAlign: 'center',
         marginBottom: 20,
+    },
+    piechartContainer: {
+        width: "100%",
+        height: "auto",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     pieChart: {
       width: "90%"
@@ -147,6 +170,26 @@ const styles = StyleSheet.create({
   tableCell: {
       flex: 1,
       textAlign: 'center',
+  },
+  legendContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  legendItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 5,
+  },
+  colorIndicator: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+    borderRadius: 10,
+  },
+  legendText: {
+    fontSize: 14,
   },
 });
 
