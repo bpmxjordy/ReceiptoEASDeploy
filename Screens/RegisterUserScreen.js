@@ -35,12 +35,12 @@ const Register = ({navigation }) => {
         alignItems: 'center',
         justifyContent: 'center'
       }}>
-      <Image source={require('../images/receiptoLogoDarkText.png')} 
+      <Image source={require('../images/receiptoLogoNew.png')} 
       containerStyle=
       {{ 
         width: '60%',
         height: undefined,
-        aspectRatio: 1.3,
+        aspectRatio: 1.2,
         
         
       }}/>
