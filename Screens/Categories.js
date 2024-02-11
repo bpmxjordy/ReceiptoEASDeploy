@@ -121,15 +121,21 @@ const CategoryAnalyticsScreen = () => {
     return (
         <ScrollView style={styles.container}>
             {/* Pie Chart for Category Analytics */}
-            <DateRangeSelector onSelect={fetchCategoryAnalytics} />
-            <View style={styles.piechartContainer}>
-                <PieChart data={categoryData} size={200} />
+              <DateRangeSelector onSelect={fetchCategoryAnalytics} />
+              <View style={styles.firstSection}>
+                <View style={styles.piechartContainer}>
+                    <PieChart data={categoryData} size={200} />
+                </View>
+                <Legend data={categoryData} />
             </View>
-            <Legend data={categoryData} />
             
-
-            {renderTableHeader()}
-            {categoryData.map(renderTableRow)}
+            <View style={styles.secondSection}>
+              <View style={styles.tableContainer}>
+                {renderTableHeader()}
+                {categoryData.map(renderTableRow)}
+              </View>
+            </View>
+            
         </ScrollView>
     );
 };
@@ -138,6 +144,7 @@ const styles = StyleSheet.create({
     container: {
         height: '100%',
         width: '100%',
+        display: "flex",
         flex: 1,
         backgroundColor: '#080B16'
     },
@@ -147,12 +154,34 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         color: "white"
     },
+    firstSection: {
+      height: "auto",
+      width: "90%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: "0%",
+      marginLeft: "5%"
+    },
+    secondSection: {
+      height: "auto",
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: "10%"
+    },
+    tableContainer: {
+      height: "auto",
+      width: "90%",
+    },
     piechartContainer: {
         width: "100%",
         height: "auto",
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: "10%"
     },
     pieChart: {
       width: "90%"
@@ -162,7 +191,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       padding: 8,
       borderBottomWidth: 1,
-      borderColor: '#ccc',
+      borderColor: '#466785'
   },
   tableHeaderCell: {
       fontWeight: 'bold',

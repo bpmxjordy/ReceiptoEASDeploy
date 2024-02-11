@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 const DateRangeSelector = ({ onSelect }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const [OptionSelected, setSelectedOption] = useState();
+    
 
     const options = [
         { label: 'Past 24 hours', value: '1' },
@@ -16,6 +16,8 @@ const DateRangeSelector = ({ onSelect }) => {
         { label: 'Past 30 Days', value: '30' },
         { label: 'Past Year', value: '365' },
     ];
+
+    const [OptionSelected, setSelectedOption] = useState(options[0].value);
 
     const handleSelect = (value) => {
         onSelect(value);
