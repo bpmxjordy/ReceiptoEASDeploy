@@ -13,6 +13,7 @@ import LineGraph from './LineGraph'
     const TotalSpent = () => {
         const { currentUser } = useAuth();
         const [totalAmount, setTotalAmount] = useState(0);
+        const [graphData, setGraphData] = useState([]);
 
         const fetchAmountSpent = async (range) => {
             let endDate = new Date();
@@ -68,10 +69,9 @@ import LineGraph from './LineGraph'
         };
 
         const fetchDailyAmountSpent = async (range) => {
-
             let endDate = new Date();
             let startDate = new Date();
-    
+        
             switch (range) {      
                 case '1':                                                   //minusing days of the current day to get the end range 
                     startDate.setDate(endDate.getDate() - 1);
@@ -94,35 +94,41 @@ import LineGraph from './LineGraph'
                 default:
                     startDate.setDate(endDate.getDate() - 7);
             }
-            
+        
             const body = JSON.stringify({
                 startDate: startDate.toISOString().split('T')[0],
                 endDate: endDate.toISOString().split('T')[0],
                 userId: currentUser.email
             });
-    
+        
             try {
                 const response = await fetch('http://192.168.1.145:3000/api/receipts/dailyAmountSpent', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: body
                 });
-    
+        
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                setDailyAmounts(data); // Assuming data is an array of { date, totalAmount }
+                setGraphData(data); 
             } catch (error) {
                 console.error('Error fetching daily amount spent:', error);
             }
         };
-    
+
+        const handleDateRangeSelect = async (range) => {
+            await fetchAmountSpent(range); // Fetches and sets the total amount
+            await fetchDailyAmountSpent(range); // Fetches and sets the graph data
+        };
+
         return (
             <View style={styles.container}>
                 <ReadReceipt/>
-                <DateRangeSelector onSelect={fetchAmountSpent} />
+                <DateRangeSelector onSelect={handleDateRangeSelect} />
                 <Text style={styles.totalAmountText}>Total Amount Spent: £{totalAmount}</Text>
+                <LineGraph data={graphData}/>
             </View>
         );
     };
@@ -132,7 +138,7 @@ import LineGraph from './LineGraph'
             heigh: '100%',
             width: '100%',
             flex: 1,
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             alignItems: 'center',
             backgroundColor: '#080B16'
         },

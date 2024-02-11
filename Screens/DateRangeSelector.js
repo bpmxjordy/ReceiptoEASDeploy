@@ -6,6 +6,8 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 const DateRangeSelector = ({ onSelect }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
+    const [OptionSelected, setSelectedOption] = useState();
+
     const options = [
         { label: 'Past 24 hours', value: '1' },
         { label: 'Past 2 Days', value: '2' },
@@ -17,12 +19,14 @@ const DateRangeSelector = ({ onSelect }) => {
 
     const handleSelect = (value) => {
         onSelect(value);
+
+        setSelectedOption(value);
         setModalVisible(false);
     };
 
     return (
-        <View>
-            <TouchableOpacity style={styles.DropButton}  onPress={() => setModalVisible(true)} ><Text style={{fontSize: 15, color: 'black'}}>{options.value}</Text><Icon style={{marginLeft: '5%'}} size={20} name='arrow-down-drop-circle' /></TouchableOpacity>
+        <View style={styles.container}>
+            <TouchableOpacity style={styles.DropButton}  onPress={() => setModalVisible(true)} ><Text style={{fontSize: 15, color: 'black'}}>Past {OptionSelected} days</Text><Icon style={{marginLeft: '5%'}} size={20} name='arrow-down-drop-circle' /></TouchableOpacity>
             <Modal
             style={{backgroundColor: 'white'}}
                 animationType="fade"
@@ -47,6 +51,14 @@ const DateRangeSelector = ({ onSelect }) => {
 };
 
 const styles = StyleSheet.create({
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        height: 'auto',
+        width: '100%'
+    },
     centeredView: {
         flex: 1,
         justifyContent: 'center',
@@ -55,11 +67,11 @@ const styles = StyleSheet.create({
     },
     DropButton: {
         display: 'flex',
-        width: "40%",
+        width: "auto",
         flexDirection: 'row',
         backgroundColor: 'white',
         color: 'white',
-        padding: 10,
+        padding: 15,
         borderRadius: 100,
         marginVertical: 8,
         marginHorizontal: 16,
