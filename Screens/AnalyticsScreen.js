@@ -31,11 +31,25 @@ const Analytics = ({navigation}) => {
     const Comparison = () => {
       navigation.push("Comparison")
     }
+    
+    const ProfileNav = () => {
+      navigation.push("Profile")
+    }
 
     return (
       
       <View style={styles.container}>
         <ReadReceipt/>
+        <View style={styles.profileContainer}>
+          <TouchableOpacity 
+          style={styles.ProfileTab}
+          onPress={() => ProfileNav(navigation)}
+          >
+              <View style={{position: 'relative', width: '100%', height: '100%', display: "flex", justifyContent: 'center', alignItems: 'center'}}>
+                  <Text style={{width: '100%', textAlign: "center", fontSize: 25, color: 'white', padding: 10, fontWeight: 'bold'}}>Profile</Text>
+              </View>
+          </TouchableOpacity>
+        </View>
         <View style={styles.tabContainer}>
         <TouchableOpacity 
         style={styles.HomeTab}
@@ -72,13 +86,13 @@ const Analytics = ({navigation}) => {
               display: 'flex',
               justifyContent: 'center',
               width: '100%',
-              height: undefined,
+              height: "auto",
               aspectRatio: '315 / 150',
               borderRadius: 10
               
               
             }}>
-              <Text style={{width: '100%', fontSize: 25, color: 'white', padding: 10, fontWeight: 'bold'}}>Categories</Text>
+              <Text style={{width: '100%', fontSize: 25, color: 'white', padding: 30, fontWeight: 'bold'}}>Categories</Text>
             </Image>
           
         </TouchableOpacity>
@@ -99,7 +113,7 @@ const Analytics = ({navigation}) => {
               
               
             }}>
-              <Text style={{width: '100%', fontSize: 25, padding: 50, color: 'white', fontWeight: 'bold'}}>Comparison</Text>
+              <Text style={{width: '100%', fontSize: 25, color: 'white', padding: 30, fontWeight: 'bold'}}>Comparison</Text>
           
             </Image>
           
@@ -112,13 +126,13 @@ const Analytics = ({navigation}) => {
 
   const styles = StyleSheet.create({
     container: {
-      heighT: '100%',
+      height: '100%',
       width: '100%',
       backgroundColor: '#080B16',
       display: 'flex',
       flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'center'
+      flexDirection: 'column',
+      alignItems: "center"
     },
     NavbarBottom: {
       width: '100%',
@@ -132,32 +146,49 @@ const Analytics = ({navigation}) => {
     },
     tabContainer: {
       width: '100%',
-      height: '100%',
-      marginBottom: '10%',
+      height: '65%',
+      marginTop: '10%',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
       position: 'relative',
-      flex: 1,
+      color: 'white',
+    },
+    profileContainer: {
+      width: '90%',
+      height: '10%',
+      marginTop: '10%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+      position: 'relative',
+      color: 'white'
+    },
+    ProfileTab: {
+      height: '100%',
+      position: "relative",
+      width: '60%',
+      display: 'flex',
+      borderRadius: 10,
+      backgroundColor: '#11182F',
       color: 'white'
     },
     HomeTab: {
-      height: '100%',
+      height: 'auto',
       width: '90%',
       display: 'flex',
       borderRadius: 10,
-      flex: 1,
       marginTop: "5%",
       backgroundColor: '#11182F',
       color: 'white'
     },
     ComparisonTab: {
-      height: '100%',
+      height: 'auto',
       width: '90%',
       display: 'flex',
       borderRadius: 10,
-      flex: 1,
       marginTop: "5%",
       backgroundColor: '#11182F',
       color: 'white'

@@ -77,12 +77,12 @@ const CategoryAnalyticsScreen = () => {
     }, []);
 
 
-    const pieChartColors = ['#007bff', // Blue
-                        '#dc3545', // Red
-                        '#28a745', // Green
-                        '#ffc107', // Yellow
-                        '#17a2b8', // Cyan
-                        '#6c757d']; // Grey
+    const pieChartColors = ['#92D8FF', // Blue
+                        '#FF9696', // Red
+                        '#A6FF93', // Green
+                        '#9990FF', // Purple
+                        '#FF9BD1', // Pink
+                        '#DADADA']; // Grey
 
     const getRandomColor = () => {
       // Generate a random color in hex format (#RRGGBB)

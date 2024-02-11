@@ -88,6 +88,17 @@ const Home = ({navigation}) => {
       
       <View style={styles.container}>
         <ReadReceipt/>
+
+        <View style={styles.profileContainer}>
+          <TouchableOpacity 
+          style={styles.ProfileTab}
+          onPress={() => ProfileNav(navigation)}
+          >
+              <View style={{position: 'relative', width: '100%', height: '100%', display: "flex", justifyContent: 'center', alignItems: 'center'}}>
+                  <Text style={{width: '100%', textAlign: "center", fontSize: 25, color: 'white', padding: 10, fontWeight: 'bold'}}>Profile</Text>
+              </View>
+          </TouchableOpacity>
+        </View>
         <View style={styles.tabContainer}>
         <TouchableOpacity 
         style={styles.HomeTab}
@@ -176,110 +187,7 @@ const Home = ({navigation}) => {
         </View>
         </View>
         
-        <View style={styles.NavbarBottom}>
-        <TouchableOpacity //Receipt History Button
-          style={{
-            width: 50,
-            height: 50,
-            margin: '3%',
-            padding: 10,
-            borderRadius: 109,
-            backgroundColor: 'white',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-          onPress={ReceiptHistoryNav}
-        >
-          <Image
-            source={require('../assets/images/HistoryIcon.png')}
-            fadeDuration={0}
-            style={{ marginLeft: 0, width: 35, height: 35, objectFit: 'contain' }}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity //Scan Button
-          style={{
-            width: 50,
-            height: 50,
-            margin: '3%',
-            padding: 10,
-            borderRadius: 109,
-            backgroundColor: 'white',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-          onPress={ScanNav}
-        >
-          <Image
-            source={require('../assets/images/CameraIcon.png')}
-            fadeDuration={0}
-            style={{ width: 35, height: 35, objectFit: 'contain' }}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity //Home Button
-          style={{
-            width: 50,
-            height: 50,
-            margin: '3%',
-            padding: 10,
-            borderRadius: 109,
-            backgroundColor: 'white',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-          onPress={HomeNav}
-        >
-          <Image
-            source={require('../assets/images/HomeIcon.png')}
-            fadeDuration={0}
-            style={{ marginBottom: 3, width: 35, height: 35, objectFit: 'contain' }}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity // Analytics Button
-          style={{
-            width: 50,
-            height: 50,
-            margin: '3%',
-            padding: 10,
-            borderRadius: 109,
-            backgroundColor: 'white',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-          onPress={AnalyticsNav}
-        >
-          <Image
-            source={require('../assets/images/AnalyticsIcon.png')}
-            fadeDuration={0}
-            style={{ width: 30, height: 30, objectFit: 'contain' }}
-          />
-        </TouchableOpacity>
-
-
-        <TouchableOpacity //profile button
-          style={{
-            width: '10',
-            height: '20px',
-            margin: '3%',
-            padding: 10,
-            borderRadius: 1000,
-            backgroundColor: 'white',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-          onPress={ProfileNav}
-        >
-          <Image
-            source={require('../assets/images/ProfileIcon.png')}
-            fadeDuration={0}
-            style={{ width: 35, height: 35, objectFit: 'contain' }}
-          />
-        </TouchableOpacity>
-        </View>
+        
     </View>
     );
   };
@@ -287,34 +195,43 @@ const Home = ({navigation}) => {
 
   const styles = StyleSheet.create({
     container: {
-      heighT: '100%',
+      height: '100%',
       width: '100%',
       backgroundColor: '#080B16',
       display: 'flex',
       flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'center'
-    },
-    NavbarBottom: {
-      width: '100%',
-      height: '10%',
-      marginTop: '170%',
-      position: 'absolute',
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center'
+      flexDirection: 'column',
+      alignItems: "center"
     },
     tabContainer: {
       width: '100%',
       height: '65%',
-      marginTop: '10%',
+      marginTop: '0%',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
       position: 'relative',
-      flex: 1,
+      color: 'white',
+    },
+    profileContainer: {
+      width: '90%',
+      height: '10%',
+      marginTop: '20%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+      position: 'relative',
+      color: 'white'
+    },
+    ProfileTab: {
+      height: '100%',
+      position: "relative",
+      width: '60%',
+      display: 'flex',
+      borderRadius: 10,
+      backgroundColor: '#11182F',
       color: 'white'
     },
     HomeTab: {
