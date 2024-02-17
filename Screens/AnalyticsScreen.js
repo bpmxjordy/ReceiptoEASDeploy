@@ -7,6 +7,7 @@ import { auth } from '../firebaseConfig';
 import { useAuth } from '../AuthContext';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ReadReceipt from './ReadReceipt';
+import Leaderboard from './Leaderboard';
 
 
 
@@ -28,8 +29,8 @@ const Analytics = ({navigation}) => {
       navigation.push("CategoriesScreen")
     }
 
-    const Comparison = () => {
-      navigation.push("Comparison")
+    const Leaderboard = () => {
+      navigation.push("Leaderboard")
     }
     
     const ProfileNav = () => {
@@ -99,7 +100,7 @@ const Analytics = ({navigation}) => {
 
         <TouchableOpacity 
         style={styles.ComparisonTab}
-        onPress={Comparison}
+        onPress={Leaderboard}
         >
             <Image source={require('../assets/images/ComparisonTab.png')} 
             containerStyle=
@@ -113,7 +114,7 @@ const Analytics = ({navigation}) => {
               
               
             }}>
-              <Text style={{width: '100%', fontSize: 25, color: 'white', padding: 30, fontWeight: 'bold'}}>Comparison</Text>
+              <Text style={{width: '100%', fontSize: 25, color: 'white', padding: 30, fontWeight: 'bold'}}>Leaderboards</Text>
           
             </Image>
           

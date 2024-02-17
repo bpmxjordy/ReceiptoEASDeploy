@@ -18,6 +18,7 @@ import CategoriesScreen from './Screens/Categories';
 import Comparison from './Screens/Comparison';
 import BottomNavBar from './Screens/BottomNavBar';
 import ScanReceipt from './Screens/ScanReceipt';
+import Leaderboard from './Screens/Leaderboard';
 
 
 const Stack = createNativeStackNavigator();
@@ -50,6 +51,7 @@ export default function App() {
             <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} options={{ title: 'Categories' }}/>
             <Stack.Screen name="Comparison" component={Comparison} options={{ title: 'Comparison' }}/>
             <Stack.Screen name="ScanReceipt" component={ScanReceipt}/>
+            <Stack.Screen name="Leaderboard" component={Leaderboard}/>
             <Stack.Screen name="Home" component={Home} options={{
             gestureEnabled: false,
             headerShown: false,
