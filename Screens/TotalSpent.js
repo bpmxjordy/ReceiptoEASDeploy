@@ -49,7 +49,7 @@ import LineGraph from './LineGraph'
             });
 
             try {
-                const response = await fetch('http://192.168.1.145:3000/api/receipts/amountSpent', {
+                const response = await fetch('https://real-pear-leopard-tam.cyclic.app/api/receipts/amountSpent', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

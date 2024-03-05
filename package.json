@@ -17,6 +17,7 @@
     "@react-navigation/native-stack": "^6.9.17",
     "@rneui/base": "^4.0.0-rc.8",
     "expo": "~49.0.15",
+    "expo-dev-client": "~2.4.13",
     "expo-image-picker": "~14.3.2",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",

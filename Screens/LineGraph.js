@@ -68,7 +68,7 @@ const LineGraph = ({ data }) => {
       const maxAmount = Math.max(...amounts);
       const minAmount = Math.min(...amounts);
       const x = ((index / (data.length - 1)) * 275) + 45; 
-      const y = 200 - ((item.totalAmount - minAmount) / (maxAmount - minAmount)) * 195;
+      const y = 200 - ((item.totalAmount - minAmount) / (maxAmount - minAmount)) * 180;
       
       console.log(`Circle ${index}: x=${x}, y=${y}`); // Debugging line
       return (

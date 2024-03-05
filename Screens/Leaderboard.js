@@ -9,7 +9,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://192.168.1.145:3000/api/leaderboard/${selectedCategory}`);
+        const response = await fetch(`https://real-pear-leopard-tam.cyclic.app/api/leaderboard/${selectedCategory}`);
         const data = await response.json();
         setLeaderboardData(data);
       } catch (error) {

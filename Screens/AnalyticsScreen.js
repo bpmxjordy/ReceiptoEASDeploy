@@ -48,7 +48,7 @@ const Analytics = ({navigation}) => {
         userId: currentUser.email,
       });
 
-                const response = await fetch('http://192.168.1.145:3000/api/receipts/overallAmount', {
+                const response = await fetch('https://real-pear-leopard-tam.cyclic.app/api/receipts/overallAmount', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: body,
@@ -62,7 +62,7 @@ const Analytics = ({navigation}) => {
                 console.log("Error: total amount");
               }
 
-              const response2 = await fetch('http://192.168.1.145:3000/api/receipts/overallReceipts', {
+              const response2 = await fetch('https://real-pear-leopard-tam.cyclic.app/api/receipts/overallReceipts', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: body,
@@ -77,7 +77,7 @@ const Analytics = ({navigation}) => {
                 console.log("Error: total receipts");
               }
 
-              const response3 = await fetch('http://192.168.1.145:3000/api/receipts/overallReceipts', {
+              const response3 = await fetch('https://real-pear-leopard-tam.cyclic.app/api/receipts/overallReceipts', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: body,
