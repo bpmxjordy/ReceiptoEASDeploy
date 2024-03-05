@@ -45,7 +45,7 @@ const ShopStat = () => {
               });
 
             console.log(body);
-            const response = await fetch('http://192.168.1.145:3000/api/statistics/vendors', {
+            const response = await fetch('https://real-pear-leopard-tam.cyclic.app/api/statistics/vendors', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: body,
