@@ -7,7 +7,7 @@ import { auth } from '../firebaseConfig';
 import { useAuth } from '../AuthContext';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ReadReceipt from './ReadReceipt';
-
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 
 
@@ -89,13 +89,14 @@ const Home = ({navigation}) => {
       <View style={styles.container}>
         <ReadReceipt/>
 
-        <View style={styles.profileContainer}>
+        <View style={styles.topContainer}>
+        <Text style={styles.navText}>Home</Text>
           <TouchableOpacity 
           style={styles.ProfileTab}
           onPress={() => ProfileNav(navigation)}
           >
-              <View style={{position: 'relative', width: '100%', height: '100%', display: "flex", justifyContent: 'center', alignItems: 'center'}}>
-                  <Text style={{width: '100%', textAlign: "center", fontSize: 25, color: 'white', padding: 10, fontWeight: 'bold'}}>Profile</Text>
+              <View style={{display: 'flex', flexDirection: 'row', position: 'relative', width: '100%', height: '100%', display: "flex", justifyContent: 'center', alignItems: 'center'}}>
+              <Icon name="account-outline" size={20} color="white" style={{flex: 1, margin: 20}} /><Text style={{flex: 5, width: '100%', textAlign: "left", fontSize: 15, color: 'white', padding: 10, fontWeight: 'bold'}}>{(currentUser.email).split('@')[0]}</Text>
               </View>
           </TouchableOpacity>
         </View>
@@ -214,25 +215,33 @@ const Home = ({navigation}) => {
       position: 'relative',
       color: 'white',
     },
-    profileContainer: {
+    topContainer: {
       width: '90%',
       height: '10%',
       marginTop: '20%',
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'row',
       justifyContent: 'center',
-      alignItems: 'flex-end',
+      alignItems: 'center',
       position: 'relative',
       color: 'white'
     },
+    navText: {
+    flex: 1.5,
+    textAlign: "center",
+    color: "white",
+    fontSize: 25,
+    fontWeight: "bold"
+    },
     ProfileTab: {
-      height: '100%',
+      height: '80%',
       position: "relative",
-      width: '60%',
+      width: '100%',
       display: 'flex',
       borderRadius: 10,
       backgroundColor: '#11182F',
-      color: 'white'
+      color: 'white',
+      flex: 2
     },
     HomeTab: {
       height: '100%',

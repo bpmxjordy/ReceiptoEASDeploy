@@ -19,7 +19,7 @@ import Comparison from './Screens/Comparison';
 import BottomNavBar from './Screens/BottomNavBar';
 import ScanReceipt from './Screens/ScanReceipt';
 import Leaderboard from './Screens/Leaderboard';
-
+import ShopStat from './Screens/ShopStat';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -40,18 +40,19 @@ export default function App() {
             headerTintColor: 'white'
           }}>
             <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
-            <Stack.Screen name="ReceiptHistory" component={ReceiptHistory} options={{unmountOnBlur: true}}/>
-            <Stack.Screen name="ReceiptDetailScreen" component={ReceiptDetailScreen} />
-            <Stack.Screen name="Register" component={Register}/>
+            <Stack.Screen name="ReceiptHistory" component={ReceiptHistory} options={{unmountOnBlur: true, title: 'History'}}/>
+            <Stack.Screen name="ReceiptDetailScreen" component={ReceiptDetailScreen} options={{ title: 'Receipt' }}/>
+            <Stack.Screen name="Register" component={Register} />
             <Stack.Screen name="Profile" component={Profile}/>
-            <Stack.Screen name="ReadReceipt" component={ReadReceipt}/>
-            <Stack.Screen name="AnalyticsScreen" component={AnalyticsScreen}/>
-            <Stack.Screen name="BottomNavBar" component={BottomNavBar}/>
-            <Stack.Screen name="TotalSpent" component={TotalSpent} options={{ title: 'Total Spent' }}/>
+            <Stack.Screen name="ReadReceipt" component={ReadReceipt} options={{ title: 'Read Receipt' }}/>
+            <Stack.Screen name="AnalyticsScreen" component={AnalyticsScreen} options={{ title: 'Analytics' }}/>
+            <Stack.Screen name="BottomNavBar" component={BottomNavBar} options={{ title: '' }}/>
+            <Stack.Screen name="TotalSpent" component={TotalSpent} options={{ title: 'Spendings' }}/>
             <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} options={{ title: 'Categories' }}/>
-            <Stack.Screen name="Comparison" component={Comparison} options={{ title: 'Comparison' }}/>
-            <Stack.Screen name="ScanReceipt" component={ScanReceipt}/>
-            <Stack.Screen name="Leaderboard" component={Leaderboard}/>
+            <Stack.Screen name="Comparison" component={Comparison} options={{ title: '' }}/>
+            <Stack.Screen name="ScanReceipt" component={ScanReceipt} options={{ title: 'Scan' }}/>
+            <Stack.Screen name="Leaderboard" component={Leaderboard} options={{ title: 'Leaderboard' }}/>
+            <Stack.Screen name="ShopStat" component={ShopStat} options={{ title: 'Shops' }}/>
             <Stack.Screen name="Home" component={Home} options={{
             gestureEnabled: false,
             headerShown: false,

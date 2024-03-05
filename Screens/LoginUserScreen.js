@@ -2,10 +2,9 @@
 import React, { useState } from 'react';
 import { View, TextInput, Alert, StyleSheet } from 'react-native';
 import { Button, Text, Input, Image} from 'react-native-elements';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword} from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import { useAuth } from '../AuthContext';
-
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Login = ({ navigation }) => {
@@ -138,6 +137,7 @@ const Login = ({ navigation }) => {
        }}
       onPress={handleLogin}
     />
+
     <Text
       style={{color: '#606C94', width: '100%', marginTop: '1%', textAlign: 'center'}}
     >
