@@ -34,7 +34,7 @@ const PieChart = ({ data, diameter = 200 }) => {
         <G>
           {data.map((slice, index) => {
             const endAngle = startAngle + (slice.percentage / 100) * 360;
-            const path = calculatePath(startAngle, endAngle, radius - 1); // -1 for stroke alignment
+            const path = calculatePath(startAngle, endAngle, radius - 1);
             startAngle = endAngle;
   
             return (

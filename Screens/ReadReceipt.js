@@ -75,7 +75,7 @@ const ReadReceipt = ({navigation}) => {
     console.log("loadReceiptFunction");
     try {
       //const response = await fetch(`http://192.168.1.145:3000/api/receipts/${ReceiptID}`);
-      const response = await fetch(`https://real-pear-leopard-tam.cyclic.app/api/receipts/${ReceiptID}`);
+      const response = await fetch(`http://192.168.1.145:3000/api/receipts/${ReceiptID}`);
       const newData = await response.json();
       updateUserId(ReceiptID, currentUser.email);
       console.log("Edited receipt with user email")
@@ -90,7 +90,7 @@ const ReadReceipt = ({navigation}) => {
   const updateUserId = async (receiptId, newUserId) => {
     try {
       //const response = await fetch('http://192.168.1.145:3000/api/receipts/updateUserId', {
-        const response = await fetch(`https://real-pear-leopard-tam.cyclic.app/api/receipts/updateUserId`, {
+        const response = await fetch(`http://192.168.1.145:3000/api/receipts/updateUserId`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

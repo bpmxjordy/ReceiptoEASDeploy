@@ -10,7 +10,7 @@ const LineGraph = ({ data }) => {
   }
 
   const graphHeight = 200;
-  const graphWidth = screenWidth - 110; // Adjusted padding
+  const graphWidth = screenWidth - 110;
   const maxValue = Math.max(...data.map(d => d.totalAmount + 20));
   const minValue = Math.min(...data.map(d => d.totalAmount));
 
@@ -51,7 +51,7 @@ const LineGraph = ({ data }) => {
         <Text
           key={`xLabel-${index}`}
           x={x}
-          y={y + 20} // Adjust y position to place labels under the graph
+          y={y + 20}
           fontSize="10"
           fill="white"
           textAnchor="middle">
@@ -64,13 +64,13 @@ const LineGraph = ({ data }) => {
   const dataPoints = () => {
     return data.map((item, index) => {
       
-      const amounts = data.map(item => item.totalAmount); // Use totalAmount here
+      const amounts = data.map(item => item.totalAmount);
       const maxAmount = Math.max(...amounts);
       const minAmount = Math.min(...amounts);
       const x = ((index / (data.length - 1)) * 275) + 45; 
       const y = 200 - ((item.totalAmount - minAmount) / (maxAmount - minAmount)) * 180;
       
-      console.log(`Circle ${index}: x=${x}, y=${y}`); // Debugging line
+      console.log(`Circle ${index}: x=${x}, y=${y}`);
       return (
         <>
         <Circle
@@ -87,7 +87,7 @@ const LineGraph = ({ data }) => {
         cy={y}
         r="20" // Larger radius for the touch area
         fill="transparent"
-        onPress={() => handlePointPress(item)} // Attach the onPress handler here
+        onPress={() => handlePointPress(item)}
       />
       </>
       );

@@ -19,9 +19,6 @@ const Home = ({navigation}) => {
   const { currentUser } = useAuth();
 
     const [recentReceipt, setRecentReceipt] = useState('');
-
-    
-
         // Extract the date
         const date = null;
 
@@ -52,7 +49,7 @@ const Home = ({navigation}) => {
 
     const navigateLatestReceipt = async (navigation) => {
       try {
-        const response = await fetch(`https://real-pear-leopard-tam.cyclic.app/api/receipts?userId=${currentUser.email}`);
+        const response = await fetch(`http://192.168.1.145:3000/api/receipts?userId=${currentUser.email}`);
           const receipts = await response.json();
           const mostRecentReceipt = receipts.sort((a, b) => new Date(b.date) - new Date(a.date))[0];
           console.log(mostRecentReceipt);
@@ -65,16 +62,16 @@ const Home = ({navigation}) => {
 
   const fetchLatestReceipt = async () => {
     try {
-      const response = await fetch(`https://real-pear-leopard-tam.cyclic.app/api/receipts?userId=${currentUser.email}`);
+      const response = await fetch(`http://192.168.1.145:3000/api/receipts?userId=${currentUser.email}`);
         const receipts = await response.json();
         const mostRecentReceipt = receipts.sort((a, b) => new Date(b.date) - new Date(a.date))[0];
         
         const dateObject = new Date(mostRecentReceipt.date);
             // Extract the date
-        const date = dateObject.toISOString().split('T')[0]; // "2023-12-13"
+        const date = dateObject.toISOString().split('T')[0];
 
         // Extract the time and removing milliseconds
-        const time = dateObject.toISOString().split('T')[1].split('.')[0]; // "17:39:44"
+        const time = dateObject.toISOString().split('T')[1].split('.')[0]; 
 
         
     } catch (error) {

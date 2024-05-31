@@ -18,10 +18,10 @@ const ReceiptDetailScreen = ({ route }) => {
     const dateObject = new Date(receipt.date);
 
     // Extract the date
-    const date = dateObject.toISOString().split('T')[0]; // "2023-12-13"
+    const date = dateObject.toISOString().split('T')[0];
 
     // Extract the time and removing milliseconds
-    const time = dateObject.toISOString().split('T')[1].split('.')[0]; // "17:39:44"
+    const time = dateObject.toISOString().split('T')[1].split('.')[0];
     return (
         <View style={styles.container}>
             <ReadReceipt/>

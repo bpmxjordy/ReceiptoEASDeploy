@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useAuth } from '../AuthContext'; // Import your AuthContext
+import { useAuth } from '../AuthContext';
 import DateRangeSelector from './DateRangeSelector';
 import PieChart from './PieChartComponent'
 
 
 const CategoryAnalyticsScreen = () => {
-    const { currentUser } = useAuth(); // Access the current user from your AuthContext
+    const { currentUser } = useAuth(); // Access the current user from AuthContext
     const [categoryData, setCategoryData] = useState([]);
 
     // Function to fetch category analytics
@@ -44,7 +44,7 @@ const CategoryAnalyticsScreen = () => {
                 userId: 'bpmxjordy@gmail.com'
             });
             console.log(body);
-        const response = await fetch('https://real-pear-leopard-tam.cyclic.app/api/statistics/categories', {
+        const response = await fetch('http://192.168.1.145:3000/api/statistics/categories', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

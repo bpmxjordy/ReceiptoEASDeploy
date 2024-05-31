@@ -14,13 +14,13 @@ const ReceiptHistoryScreen = ({navigation}) => {
 
     const loadReceipts = async () => {
         
-        if (isLoading) return;  // Prevent new fetch if already loading
+        if (isLoading) return;
         
         setIsLoading(true);
         try {
             console.log(currentUser.email)
             //const response = await fetch(`http://192.168.1.145:3000/api/receipts?userId=${currentUser.email}&page=${page}&pageSize=${pageSize}`);
-            const response = await fetch(`https://real-pear-leopard-tam.cyclic.app/api/receipts?userId=${currentUser.email}&page=${page}&pageSize=${pageSize}`);
+            const response = await fetch(`http://192.168.1.145:3000/api/receipts?userId=${currentUser.email}&page=${page}&pageSize=${pageSize}`);
             const newData = await response.json();
             setReceipts([...receipts, ...newData]);
             setPage(page + 1); // Increment page for next load
