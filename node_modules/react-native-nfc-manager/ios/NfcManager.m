@@ -306,11 +306,27 @@ RCT_EXPORT_METHOD(requestTechnology: (NSArray *)techs options: (NSDictionary *)o
     }
 }
 
+RCT_EXPORT_METHOD(restartTechnologyRequest:(nonnull RCTResponseSenderBlock)callback)
+{
+    if (@available(iOS 13.0, *)) {
+        if (tagSession != nil) {
+            NSLog(@"NfcManager restarting polling");
+            [self->tagSession restartPolling];
+            techRequestCallback = callback;
+        } else {
+            callback(@[@"No active registration", [NSNull null]]);
+        }
+    } else {
+        callback(@[@"Not support in this device", [NSNull null]]);
+    }
+}
+
 RCT_EXPORT_METHOD(cancelTechnologyRequest:(nonnull RCTResponseSenderBlock)callback)
 {
     if (@available(iOS 13.0, *)) {
         if (tagSession != nil) {
             [tagSession invalidateSession];
+            tagSession = nil;
             callback(@[]);
         } else {
             callback(@[@"Not even registered", [NSNull null]]);
@@ -342,6 +358,7 @@ RCT_EXPORT_METHOD(unregisterTagEvent:(nonnull RCTResponseSenderBlock)callback)
     if (@available(iOS 11.0, *)) {
         if (session != nil) {
             [session invalidateSession];
+            session = nil;
             callback(@[]);
         } else {
             callback(@[@"Not even registered", [NSNull null]]);
@@ -356,9 +373,11 @@ RCT_EXPORT_METHOD(invalidateSession:(nonnull RCTResponseSenderBlock)callback)
     if (@available(iOS 13.0, *)) {
         if (session != nil) {
             [session invalidateSession];
+            session = nil;
             callback(@[]);
         } else if (tagSession != nil) {
             [tagSession invalidateSession];
+            tagSession = nil;
             callback(@[]);
         } else {
             callback(@[@"No active session", [NSNull null]]);
@@ -371,9 +390,11 @@ RCT_EXPORT_METHOD(invalidateSessionWithError:(NSString *)errorMessage callback:(
     if (@available(iOS 13.0, *)) {
         if (session != nil) {
             [session invalidateSessionWithErrorMessage: errorMessage];
+            session = nil;
             callback(@[]);
         } else if (tagSession != nil) {
             [tagSession invalidateSessionWithErrorMessage: errorMessage];
+            tagSession = nil;
             callback(@[]);
         } else {
             callback(@[@"No active session", [NSNull null]]);

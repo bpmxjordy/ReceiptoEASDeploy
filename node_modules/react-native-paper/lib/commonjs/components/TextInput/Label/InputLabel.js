@@ -17,6 +17,7 @@ const InputLabel = props => {
     focused,
     opacity,
     labelLayoutWidth,
+    labelLayoutHeight,
     labelBackground,
     label,
     labelError,
@@ -45,7 +46,8 @@ const InputLabel = props => {
     maxFontSizeMultiplier,
     testID,
     isV3,
-    inputContainerLayout
+    inputContainerLayout,
+    scaledLabel
   } = props;
   const {
     INPUT_PADDING_HORIZONTAL
@@ -95,25 +97,35 @@ const InputLabel = props => {
       }) : labeled
     }]
   };
+  const labelWidth = (inputContainerLayout.width + INPUT_PADDING_HORIZONTAL / 2) / (scaledLabel ? labelScale : 1);
   const commonStyles = [placeholderStyle, {
-    top: topPosition,
-    maxWidth: inputContainerLayout.width + INPUT_PADDING_HORIZONTAL / 2
+    top: topPosition
+  }, {
+    maxWidth: labelWidth
   }, labelStyle, paddingOffset || {}];
   const textColor = labelError && errorColor ? errorColor : placeholderColor;
   return (
     /*#__PURE__*/
     // Position colored placeholder and gray placeholder on top of each other and crossfade them
     // This gives the effect of animating the color, but allows us to use native driver
-    _react.default.createElement(_reactNative.Animated.View, {
+    _react.default.createElement(_reactNative.View, {
+      pointerEvents: "none",
+      style: [_reactNative.StyleSheet.absoluteFill, styles.overflow]
+    }, /*#__PURE__*/_react.default.createElement(_reactNative.Animated.View, {
       pointerEvents: "none",
       style: [_reactNative.StyleSheet.absoluteFill, styles.labelContainer, _reactNative.Platform.OS !== 'web' && {
         width
       }, {
         opacity
       }, labelTranslationX]
+    }, /*#__PURE__*/_react.default.createElement(_reactNative.View, {
+      style: {
+        width: labelWidth
+      }
     }, labelBackground === null || labelBackground === void 0 ? void 0 : labelBackground({
       labeled,
       labelLayoutWidth,
+      labelLayoutHeight,
       labelStyle,
       placeholderStyle,
       baseLabelTranslateX,
@@ -142,10 +154,13 @@ const InputLabel = props => {
       numberOfLines: 1,
       maxFontSizeMultiplier: maxFontSizeMultiplier,
       testID: `${testID}-label-inactive`
-    }, label))
+    }, label))))
   );
 };
 const styles = _reactNative.StyleSheet.create({
+  overflow: {
+    overflow: 'hidden'
+  },
   labelContainer: {
     zIndex: 3
   }
