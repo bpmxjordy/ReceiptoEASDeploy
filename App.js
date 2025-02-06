@@ -55,7 +55,7 @@ export default function App() {
             <Stack.Screen name="ShopStat" component={ShopStat} options={{ title: 'Shops' }}/>
             <Stack.Screen name="Home" component={Home} options={{
             gestureEnabled: false,
-            headerShown: false,
+            headerShown: false, 
             headerLeft: () => <></>,}}>
            </Stack.Screen>
           </Stack.Navigator>
