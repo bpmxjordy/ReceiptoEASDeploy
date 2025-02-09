@@ -1,11 +1,11 @@
-// Login.js
+// Screens/LoginUserScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, Alert, StyleSheet } from 'react-native';
-import { Button, Text, Input, Image} from 'react-native-elements';
-import { signInWithEmailAndPassword} from 'firebase/auth';
+import { View, Alert, StyleSheet } from 'react-native';
+import { Button, Text, Input, Image } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import { useAuth } from '../AuthContext';
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -15,149 +15,66 @@ const Login = ({ navigation }) => {
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
-        signIn(userCredential.user); // Set the current user
-        navigation.navigate('Home'); // Navigate to the Profile screen
+        // userCredential.user -> { uid, email, ... } from Firebase
+        signIn(userCredential.user); // Store user in AuthContext & Secure Store
+        // Navigation to 'Home' is handled by RootNavigator because currentUser is now set
+        // but you can force nav if you want:
+        navigation.navigate('Home');
       })
       .catch(error => {
-        Alert.alert("Login failed", error.message);
+        Alert.alert('Login failed', error.message);
       });
-  };
-
-  const onSignIn = (user) => {
-    // Handle user login
-    console.log('User signed in:', user);
   };
 
   return (
     <View style={styles.container}>
-      <View style={{
-        width: '100%',
-        height: '10%',
-        display: 'flex',
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-      <Image source={require('../images/receiptoLogoNew.png')} 
-      containerStyle=
-      {{ 
-        width: '60%',
-        height: undefined,
-        aspectRatio: 1.2,
-        
-        
-      }}/>
-    
-      {/* <Text
-      
-      h1Style={{}}
-      h2Style={{}}
-      h3Style={{}}
-      h4Style={{}}
-      style={{color: '#fff', width: '100%', height: '50%', textAlign: 'center', fontSize: 35, marginTop: 2}}
-    >
-      Receipto
-
-    </Text> */}
+      <View style={styles.logoContainer}>
+        <Image
+          source={require('../images/receiptoLogoNew.png')}
+          containerStyle={styles.logoImage}
+        />
       </View>
-      
-    <Input
-      containerStyle=
-      {{ 
-        width: '90%',
-        marginLeft: '5%'
-      }}
-      disabledInputStyle={{ background: "#ddd" }}
-      inputContainerStyle={{paddingLeft: '2%', backgroundColor: '#11182F', borderRadius: 10, borderBottomWidth: 0}}
-      errorStyle={{}}
-      errorProps={{}}
-      inputStyle={{color: 'white'}}
-      label="Login"
-      labelStyle={{marginBottom: 15}}
-      labelProps={{}}
-      leftIcon={<Icon name="account-outline" size={20} color="white" />}
-      leftIconContainerStyle={{marginLeft: '5%', marginRight: '5%'}}
-      rightIcon={{}}
-      rightIconContainerStyle={{}}
-      placeholder="Email"
-      value={email} 
-      onChangeText={setEmail}
-    />
 
-<Input
-      containerStyle=
-      {{ 
-        width: '90%',
-        marginLeft: '5%',
-        marginBottom: '-5%'
-      }}
-      disabledInputStyle={{ background: "#ddd" }}
-      inputContainerStyle={{
-        paddingLeft: 2, 
-        backgroundColor: '#11182F', 
-        borderRadius: 10, 
-        borderBottomWidth: 0
-      }}
-      errorStyle={{}}
-      errorProps={{}}
-      inputStyle={{color: 'white'}}
-      labelStyle={{}}
-      labelProps={{}}
-      leftIcon={<Icon name="key" size={20} color="white" />}
-      leftIconContainerStyle={{marginLeft: '5%', marginRight: '5%'}}
-      rightIcon={{}}
-      rightIconContainerStyle={{}}
-      placeholder="Password"
-      value={password} 
-      onChangeText={setPassword} 
-      secureTextEntry
-    />
-    <Button
-      buttonStyle={{
-        borderRadius: 10,
-        backgroundColor: '#fff',
-        width: '70%',
-        marginLeft: '15%',
-        justifyContent: 'center'
-      }}
-      containerStyle={{ margin: '5%' }}
-      disabledStyle={{
-        borderWidth: 2,
-        borderColor: "#00F",
-      }}
-      disabledTitleStyle={{ color: "#00F" }}
-      loadingProps={{ animating: true }}
-      loadingStyle={{}}
-      title="Login"
-      titleProps={{}}
-      titleStyle={{ 
-        marginHorizontal: '5%',
-        color: '#080B16'
-       }}
-      onPress={handleLogin}
-    />
+      <Input
+        containerStyle={styles.emailContainer}
+        inputContainerStyle={styles.inputContainer}
+        inputStyle={{ color: 'white' }}
+        leftIcon={<Icon name="account-outline" size={20} color="white" />}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+      />
 
-    <Text
-      style={{color: '#606C94', width: '100%', marginTop: '1%', textAlign: 'center'}}
-    >
-      Don't have an account?
-      <Text
-      
-      h1Style={{}}
-      h2Style={{}}
-      h3Style={{}}
-      h4Style={{}}
-      style={{color: '#fff', width: '30%', marginLeft: '2%'}}
-      onPress={() => navigation.navigate('Register')}
-    >
-      Click here
-    </Text>
-    </Text>
-    
+      <Input
+        containerStyle={styles.passwordContainer}
+        inputContainerStyle={styles.inputContainer}
+        inputStyle={{ color: 'white' }}
+        leftIcon={<Icon name="key" size={20} color="white" />}
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+
+      <Button
+        buttonStyle={styles.loginButton}
+        containerStyle={{ margin: '5%' }}
+        titleStyle={{ color: '#080B16' }}
+        title="Login"
+        onPress={handleLogin}
+      />
+
+      <Text style={styles.registerText}>
+        Don't have an account?
+        <Text style={styles.registerLink} onPress={() => navigation.navigate('Register')}>
+          {' '}Click here
+        </Text>
+      </Text>
     </View>
   );
 };
+
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
@@ -166,11 +83,49 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: '10%',
   },
-  input: {
-    marginBottom: '20%',
-    borderWidth: 1,
-    padding: '10%',
+  logoContainer: {
+    width: '100%',
+    height: '10%',
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoImage: {
+    width: '60%',
+    height: undefined,
+    aspectRatio: 1.2,
+  },
+  emailContainer: {
+    width: '90%',
+    marginLeft: '5%',
+  },
+  passwordContainer: {
+    width: '90%',
+    marginLeft: '5%',
+    marginBottom: '-5%',
+  },
+  inputContainer: {
+    paddingLeft: '5%',
+    backgroundColor: '#11182F',
+    borderRadius: 10,
+    borderBottomWidth: 0,
+  },
+  loginButton: {
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    width: '70%',
+    marginLeft: '15%',
+    justifyContent: 'center',
+  },
+  registerText: {
+    color: '#606C94',
+    width: '100%',
+    marginTop: '1%',
+    textAlign: 'center',
+  },
+  registerLink: {
+    color: '#fff',
+    marginLeft: '2%',
   },
 });
-
-export default Login;

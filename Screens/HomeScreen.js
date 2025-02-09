@@ -165,20 +165,8 @@ const Home = ({navigation}) => {
           style={styles.doubleTab}
           onPress={ReceiptHistoryNav}
           >
-            <Image source={require('../assets/images/HistoryHomeTab.png')} 
-              containerStyle=
-              {{ 
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%',
-                height: undefined,
-                aspectRatio: '469 / 469',
-                borderRadius: 10
-                
-                
-              }}>
-              </Image>
+                <Text style={{width: '100%', height: undefined, fontSize: 25, color: 'white', fontWeight: 'bold', textAlign: 'center'}}>Receipts</Text>
+              
           </TouchableOpacity>
 
           

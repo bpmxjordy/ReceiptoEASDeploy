@@ -35,6 +35,9 @@
         "projectId": "a52773c4-ead5-4202-8f9c-387c5bfd6eae"
       }
     },
-    "owner": "bpmxjordy"
+    "owner": "bpmxjordy",
+    "plugins": [
+      "expo-secure-store"
+    ]
   }
 }
