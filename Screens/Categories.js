@@ -41,7 +41,7 @@ const CategoryAnalyticsScreen = () => {
             const body = JSON.stringify({                                   //body to send the data through the post request
                 startDate: startD.toISOString().split('T')[0],
                 endDate: endDate.toISOString().split('T')[0],
-                userId: 'bpmxjordy@gmail.com'
+                userId: currentUser.email
             });
             console.log(body);
         const response = await fetch('http://192.168.1.145:3000/api/statistics/categories', {
