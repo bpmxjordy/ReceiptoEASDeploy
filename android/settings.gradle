@@ -1,10 +1,39 @@
 rootProject.name = 'App'
 
-apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle");
+// --- Resolve and log the Expo package path ---
+def expoPackagePathProcess = ["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootDir)
+def expoPackagePath = expoPackagePathProcess.text.trim()
+println "Expo package path: ${expoPackagePath}"
+if (expoPackagePath == "" || expoPackagePath == "/") {
+    // Fallback relative path (adjust if necessary)
+    expoPackagePath = "$rootDir/node_modules/expo/package.json"
+    println "Using fallback Expo package path: ${expoPackagePath}"
+}
+apply from: new File(expoPackagePath, "../scripts/autolinking.gradle")
 useExpoModules()
 
-apply from: new File(["node", "--print", "require.resolve('@react-native-community/cli-platform-android/package.json')"].execute(null, rootDir).text.trim(), "../native_modules.gradle");
+// --- Resolve and log the React Native CLI platform path ---
+def cliPlatformPathProcess = ["node", "--print", "require.resolve('@react-native-community/cli-platform-android/package.json')"].execute(null, rootDir)
+def cliPlatformPath = cliPlatformPathProcess.text.trim()
+println "CLI Platform path: ${cliPlatformPath}"
+if (cliPlatformPath == "" || cliPlatformPath == "/") {
+    // Fallback relative path (adjust if necessary)
+    cliPlatformPath = "$rootDir/node_modules/@react-native-community/cli-platform-android/package.json"
+    println "Using fallback CLI platform path: ${cliPlatformPath}"
+}
+apply from: new File(cliPlatformPath, "../native_modules.gradle")
 applyNativeModulesSettingsGradle(settings)
 
+// --- Include the app module ---
 include ':app'
-includeBuild(new File(["node", "--print", "require.resolve('@react-native/gradle-plugin/package.json')"].execute(null, rootDir).text.trim()).getParentFile())
+
+// --- Resolve and log the Gradle plugin path ---
+def gradlePluginPathProcess = ["node", "--print", "require.resolve('@react-native/gradle-plugin/package.json')"].execute(null, rootDir)
+def gradlePluginPath = gradlePluginPathProcess.text.trim()
+println "Gradle plugin path: ${gradlePluginPath}"
+if (gradlePluginPath == "" || gradlePluginPath == "/") {
+    // Fallback relative path (adjust if necessary)
+    gradlePluginPath = "$rootDir/node_modules/@react-native/gradle-plugin/package.json"
+    println "Using fallback Gradle plugin path: ${gradlePluginPath}"
+}
+includeBuild(new File(gradlePluginPath).getParentFile())
