@@ -1,137 +1,84 @@
-// ReceiptScanner.js
-import React, { useState, useRef } from 'react';
-import { View, Text, TouchableOpacity, Image, ActivityIndicator, StyleSheet } from 'react-native';
-import { RNCamera } from 'react-native-camera';
-import { TextRecognition } from '@react-native-ml-kit/text-recognition';
-import { useAuth } from '../AuthContext';
+// CameraScreen.js
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Camera, useCameraDevices } from 'react-native-vision-camera';
 
-const ReceiptScanner = () => {
-  const cameraRef = useRef(null);
-  const [imageUri, setImageUri] = useState(null);
-  const [ocrText, setOcrText] = useState('');
-  const [loading, setLoading] = useState(false);
-  const currentUser = useAuth();
-  // Capture an image using the camera
-  const takePicture = async () => {
-    if (cameraRef.current) {
-      try {
-        const options = { quality: 0.8, base64: true };
-        const data = await cameraRef.current.takePictureAsync(options);
-        setImageUri(data.uri);
-        runOcr(data.uri);
-      } catch (error) {
-        console.error('Error capturing image:', error);
-      }
-    }
-  };
+export default function CameraScreen() {
+  // Local state to track whether permission is granted.
+  const [hasPermission, setHasPermission] = useState(false);
 
-  // Run OCR on the captured image using ML Kit
-  const runOcr = async (uri) => {
-    try {
-      setLoading(true);
-      // Use ML Kit's text recognition to process the image.
-      const result = await TextRecognition.recognize(uri);
-      // Combine text from all detected blocks.
-      const recognizedText = result.blocks.map(block => block.text).join('\n');
-      setOcrText(recognizedText);
-      // Send the recognized text to your backend via the new OCR endpoint.
-      sendTextToBackend(recognizedText);
-    } catch (error) {
-      console.error('OCR error:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // Retrieve the available camera devices; select the back camera.
+  const devices = useCameraDevices();
+  const device = devices.back;
 
-  // Send the recognized OCR text to the new backend endpoint.
-  const sendTextToBackend = async (text) => {
-    try {
-      const response = await fetch('http://192.168.1.145:3000/api/receipts/ocr', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        // You can send additional data like userId if required.
-        body: JSON.stringify({ text, userId: currentUser.email }),
-      });
-      const json = await response.json();
-      console.log('Backend response:', json);
-      // Optionally, update your UI or navigate based on the response.
-    } catch (error) {
-      console.error('Error sending OCR text to backend:', error);
-    }
-  };
+  // Request camera permissions when the component mounts.
+  useEffect(() => {
+    (async () => {
+      const permission = await Camera.requestCameraPermission();
+      // The permission returns a string, for example "authorized" when granted.
+      setHasPermission(permission === 'authorized');
+    })();
+  }, []);
 
+  // If the back camera device isn’t available yet, show a loading message.
+  if (device == null) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.text}>Loading camera...</Text>
+      </View>
+    );
+  }
+
+  // If permission is not granted, show an error message.
+  if (!hasPermission) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.text}>No camera permission.</Text>
+      </View>
+    );
+  }
+
+  // Render the Camera view using the back camera.
   return (
-    <View style={{ flex: 1 }}>
-      {!imageUri ? (
-        <RNCamera
-          ref={cameraRef}
-          style={styles.preview}
-          type={RNCamera.Constants.Type.back}
-          captureAudio={false}
-        >
-          <View style={styles.captureContainer}>
-            <TouchableOpacity onPress={takePicture} style={styles.captureButton}>
-              <Text style={{ fontSize: 14 }}>CAPTURE</Text>
-            </TouchableOpacity>
-          </View>
-        </RNCamera>
-      ) : (
-        <View style={styles.resultContainer}>
-          {loading ? (
-            <ActivityIndicator size="large" color="#0000ff" />
-          ) : (
-            <>
-              <Image source={{ uri: imageUri }} style={styles.capturedImage} />
-              <Text style={styles.ocrText}>{ocrText}</Text>
-            </>
-          )}
-          <TouchableOpacity onPress={() => { setImageUri(null); setOcrText(''); }} style={styles.retakeButton}>
-            <Text>Retake</Text>
-          </TouchableOpacity>
-        </View>
-      )}
+    <View style={styles.container}>
+      <Camera
+        style={StyleSheet.absoluteFill}
+        device={device}
+        isActive={true} // Keep the camera active while this view is mounted.
+      />
+      <TouchableOpacity style={styles.captureButton} onPress={() => { /* add capture functionality here */ }}>
+        <Text style={styles.buttonText}>CAPTURE</Text>
+      </TouchableOpacity>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  preview: {
+  container: {
     flex: 1,
-    justifyContent: 'flex-end',
+    backgroundColor: 'black',
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  captureContainer: {
-    flex: 0,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginBottom: 20,
+  text: {
+    fontSize: 18,
+    color: 'white',
   },
   captureButton: {
-    padding: 15,
-    backgroundColor: '#fff',
-    borderRadius: 5,
+    position: 'absolute',
+    bottom: 40,
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    borderRadius: 10,
   },
-  resultContainer: {
-    flex: 1,
-    padding: 10,
-  },
-  capturedImage: {
-    width: '100%',
-    height: 300,
-    resizeMode: 'contain',
-  },
-  ocrText: {
-    marginTop: 10,
-    fontSize: 16,
-  },
-  retakeButton: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: '#ddd',
-    alignItems: 'center',
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
   },
 });
-
-export default ReceiptScanner;
