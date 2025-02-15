@@ -86,7 +86,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.app"
+    namespace 'com.Receipto.receiptoapp'
     defaultConfig {
         applicationId 'com.Receipto.receiptoapp'
         minSdkVersion rootProject.ext.minSdkVersion
